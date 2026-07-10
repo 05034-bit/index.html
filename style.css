@@ -1,0 +1,98 @@
+/* 全体のリセットと中央寄せ */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f0f4f8;
+    font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* ゲーム全体の土台（サイズ 960x540 固定） */
+.game-container {
+    position: relative;
+    width: 960px;
+    height: 540px;
+    box-shadow: 0 4px 25px rgba(0,0,0,0.15);
+    overflow: hidden;
+    background-color: #ffffff;
+}
+
+/* 背景画像共通の設定 */
+.bg-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 960px;
+    height: 540px;
+    object-fit: fill;
+}
+
+#bg-back { 
+    z-index: 1; 
+}
+
+/* 【最重要】黒い窓を透明化して、壁の裏に生き物を隠す設定 */
+#bg-front {
+    z-index: 10;
+    mix-blend-mode: screen; /* ★黒い窓だけを100%透明にして家具を映し出します */
+    pointer-events: none;   /* マウスの反応を突き抜けさせて奥の生き物を触れるようにする */
+}
+
+/* 小さな生きもの（サイズは小さめ） */
+.creature {
+    position: absolute;
+    width: 25px;  
+    height: auto;
+    cursor: pointer;
+    transition: left 0.3s ease, top 0.3s ease;
+    z-index: 5; /* bg-back(1) と bg-front(10) に挟まれることで、壁の裏に回ると体が隠れます */
+}
+
+/* 5匹の初期配置（絶対座標に戻しました） */
+#foo1 { top: 220px; left: 420px; }
+#foo2 { top: 280px; left: 460px; }
+#foo3 { top: 200px; left: 550px; }
+#foo4 { top: 290px; left: 640px; }
+#foo5 { top: 240px; left: 720px; }
+
+/* ちょうちょ */
+.butterfly {
+    position: absolute;
+    width: 80px;  
+    height: auto;
+    cursor: pointer;
+    transition: left 0.5s ease, top 0.5s ease;
+    z-index: 20; /* いちばん手前 */
+}
+
+/* ちょうちょの初期配置 */
+#butterfly1 { top: 430px; left: 120px; }
+#butterfly2 { top: 400px; left: 350px; }
+#butterfly3 { top: 450px; left: 580px; }
+
+
+/* ========================================================
+   文字スタイル（紫がかった赤 ＋ 薄い白枠の座布団）
+   ======================================================== */
+.text-group {
+    position: absolute;
+    left: 20px;
+    top: 30px;
+    z-index: 30; /* 最前面 */
+    
+    /* 薄い白枠（半透明の背景） */
+    background-color: rgba(255, 255, 255, 0.55); 
+    padding: 12px 24px;
+    border-radius: 4px;
+    
+    /* 文字のデザイン */
+    color: #b51a4b;       /* 紫がかった赤 */
+    font-weight: bold;    /* 太字 */
+    font-size: 24px;      /* サイズ */
+    line-height: 1.5;     /* 行間 */
+    letter-spacing: 0.05em;
+    pointer-events: none;
+}
